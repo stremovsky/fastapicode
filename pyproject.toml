@@ -2,7 +2,7 @@
 name = "exam-example"
 version = "0.1.0"
 description = ""
-authors = ["Cynerio Test"]
+authors = ["Code Test"]
 
 [tool.poetry.dependencies]
 python = "^3.9"

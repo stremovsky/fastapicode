@@ -2,14 +2,21 @@ version: '3'
 services:
   apisrv:
     build: .
-    environment:
-      - redis_url=redis://redis
+    env_file:
+      - redis.env
     ports:
       - 5000:5000
   redis:
     image: "redis:alpine"
+    env_file:
+      - redis.env
+    entrypoint: /bin/sh
+    command: -c "redis-server /etc/redis/redis.conf --requirepass $$REDIS_PASSWORD"
+    volumes:
+      - ./data:/data
+      - ./redis.conf:/etc/redis/redis.conf
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: ["CMD", "redis-cli", "-a", "$$REDIS_PASSWORD", "ping"]
       interval: 5s
       timeout: 3s
       retries: 5
