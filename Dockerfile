@@ -4,8 +4,8 @@ COPY pyproject.toml .
 RUN addgroup -S appgroup && adduser --no-create-home -S appuser -G appgroup && \
     chown appuser:appgroup /code && \
     apk add --no-cache gcc musl-dev libffi-dev && \
-    pip install poetry fastapi starlette_exporter redis && \
+    pip install --no-cache-dir poetry fastapi starlette_exporter redis uvicorn && \
     poetry install
 COPY src src
 USER appuser
-CMD [ "python", "-u", "./src/api.py" ]
+CMD [ "uvicorn", "src.api:app", "--host", "0.0.0.0", "--port", "5000" ]

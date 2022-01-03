@@ -2,8 +2,12 @@ version: '3'
 services:
   apisrv:
     build: .
+    environment:
+      - redis_url=redis://redis
     ports:
       - 5000:5000
+  redis:
+    image: "redis:alpine"
   prometheus:
     image: prom/prometheus
     ports:
