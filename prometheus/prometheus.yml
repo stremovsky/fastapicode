@@ -3,9 +3,13 @@ global:
   scrape_timeout: 10s
 
 scrape_configs:
-  - job_name: services
+  - job_name: prom
     metrics_path: /metrics
     static_configs:
       - targets:
           - 'prometheus:9090'
+  - job_name: apisrv
+    metrics_path: /prom-metrics
+    static_configs:
+      - targets:
           - 'apisrv:5000'

@@ -9,3 +9,4 @@ RUN addgroup -S appgroup && adduser --no-create-home -S appuser -G appgroup && \
 COPY src src
 USER appuser
 CMD [ "uvicorn", "src.api:app", "--host", "0.0.0.0", "--port", "5000" ]
+HEALTHCHECK --interval=5s --timeout=3s CMD curl --fail http://localhost:5000/healthcheck || exit 1

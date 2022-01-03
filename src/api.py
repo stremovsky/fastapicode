@@ -28,6 +28,10 @@ def startup_event():
     redis_con = redis.from_url(settings.redis_url)
 
 
+@app.get("/healthcheck")
+def get_healthcheck():
+    return {"status": "ok"}
+
 @app.get("/get/{item_id}")
 def get_data(item_id: str):
     data = redis_con.get(item_id)
